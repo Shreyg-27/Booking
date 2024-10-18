@@ -17,6 +17,20 @@ const db = 'mongodb+srv://shreyaganjoo:iATblM53nqy7Xp9o@cluster0.8rpdj.mongodb.n
 // Server port configuration
 const PORT = process.env.PORT || 5000;
 
+// Calling out all the models 
+const User = require("./Models/userModel");
+const Admin = require("./Models/adminModel");
+const Driver = require("./Models/driverModel");
+const Booking = require("./Models/bookingModel");
+const Transaction = require("./Models/transactionModel");
+const Feedback = require("./Models/feedbackModel");
+
+// routing paths
+const userRoute = require("./routes/userRoute");
+const driverRoute = require("./routes/driverRoute");
+const bookingRoute = require("./routes/bookingRoute");
+app.use(express.json());
+
 // Initialize MongoDB connection and start the server
 mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
@@ -30,3 +44,7 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     .catch((error) => {
         console.error("Failed to connect to MongoDB", error);
     });
+
+app.use(userRoute);
+app.use(driverRoute);
+app.use(bookingRoute);
